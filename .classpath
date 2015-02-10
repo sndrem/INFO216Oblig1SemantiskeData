@@ -4,6 +4,8 @@
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.USER_LIBRARY/Apache_Commons"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.USER_LIBRARY/Apache_Jena"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.USER_LIBRARY/Commons"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.USER_LIBRARY/Jena"/>
 	<classpathentry kind="lib" path="/Users/sindremoldeklev/Documents/apache-jena-2.12.1/lib-src/jena-arq-2.12.1-sources.jar"/>
 	<classpathentry kind="lib" path="/Users/sindremoldeklev/Documents/apache-jena-2.12.1/lib-src/jena-core-2.12.1-sources.jar" sourcepath="/Users/sindremoldeklev/Documents/apache-jena-2.12.1/lib-src/jena-core-2.12.1-sources.jar">
 		<attributes>
