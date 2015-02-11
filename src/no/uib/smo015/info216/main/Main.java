@@ -23,11 +23,6 @@ public class Main {
 //		model.saveFile("testHappyIndex.ttl");
 		
 		model.printModel();
-		
-		
-		
-		
-		
 	}
 
 }

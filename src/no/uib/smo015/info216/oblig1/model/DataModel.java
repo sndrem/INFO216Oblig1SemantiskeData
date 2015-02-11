@@ -18,10 +18,11 @@ public class DataModel {
 	private Dataset dataset;
 	private Parser fileParser;
 	private String prefix;
-	private Property id, country, subRegion, lifeExpectancy, wellBeing, happyLifeYears, footPrint, happyIndex, population, gdp, govRank, type;
+	private Property id, country, subRegion, lifeExpectancy, wellBeing, happyLifeYears, footPrint, happyIndex, population, gdp, govRank, type, rank;
+	
 	private Map<String, String> prefixMap;
 	private final String ID = "id", COUNTRY = "country", SUB_REGION = "subRegion", LIFE_EXPECTANCY = "lifeExpectancy", HAPPY_LIFE_YEARS = "happyLifeYears", 
-			FOOTPRINT = "footPrint", HAPPY_INDEX = "happyIndex", POPULATION = "population", GDP = "gdp", GOV_RANK = "govRank", WELL_BEING = "wellBeing";
+			FOOTPRINT = "footPrint", HAPPY_INDEX = "happyIndex", POPULATION = "population", GDP = "gdp", GOV_RANK = "govRank", WELL_BEING = "wellBeing", RANK = "rank";
 	
 	public DataModel(){
 		hpiModel = ModelFactory.createDefaultModel();
@@ -37,7 +38,7 @@ public class DataModel {
 	public void populateModel(){
 		fileParser = new Parser();
 		
-		fileParser.readFile(this, "data/Happy_Planet_IndexV2.csv");
+		fileParser.readFile(this, "data/Riktig_HPI_Index.csv");
 	}
 	
 	/**
@@ -83,6 +84,7 @@ public class DataModel {
 	private void createProperties(){
 		prefix = "http://smo015.uib.no/happyPlanetIndex#";
 		id = hpiModel.createProperty(prefix + this.ID);
+		rank = hpiModel.createProperty(prefix + this.RANK);
 		country = hpiModel.createProperty(prefix + this.COUNTRY);
 		subRegion = hpiModel.createProperty(prefix + this.SUB_REGION);
 		lifeExpectancy = hpiModel.createProperty(prefix + this.LIFE_EXPECTANCY);
@@ -334,6 +336,20 @@ public class DataModel {
 	 */
 	public void setType(Property type) {
 		this.type = type;
+	}
+
+	/**
+	 * @return the rank
+	 */
+	public Property getRank() {
+		return rank;
+	}
+
+	/**
+	 * @param rank the rank to set
+	 */
+	public void setRank(Property rank) {
+		this.rank = rank;
 	}
 	
 	
