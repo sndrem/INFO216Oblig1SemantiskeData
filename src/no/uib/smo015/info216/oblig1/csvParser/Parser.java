@@ -51,7 +51,8 @@ public class Parser {
 
 			while ((line = reader.readLine()) != null) {
 				String[] props = line.split(split);
-				String countryName = compact(props[0]);
+				// Valgt 1 fordi det er kolonne 2 i csv-filen som inneholder countryNames
+				String countryName = compact(props[1]);
 				
 				// System.out.println( "Index " + index + ": [Country] " +
 				// props[0] + " [Sub region] " + props[1] +
