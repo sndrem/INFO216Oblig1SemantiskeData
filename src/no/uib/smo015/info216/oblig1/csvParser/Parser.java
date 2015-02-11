@@ -66,7 +66,7 @@ public class Parser {
 				Resource res = tempModel.createResource(data.getPrefix() + countryName);
 				
 						res.addProperty(data.getId(),tempModel.createTypedLiteral(index))
-						.addLiteral(data.getRank(), props[1])
+						.addLiteral(data.getRank(), props[0])
 						.addLiteral(data.getSubRegion(), props[1])
 						.addLiteral(data.getLifeExpectancy(), props[2])
 						.addLiteral(data.getWellBeing(), props[3])
