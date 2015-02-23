@@ -16,8 +16,7 @@ import com.hp.hpl.jena.vocabulary.RDF;
  * 
  * @author sindremoldeklev
  * @version 0.0.1
- * 
- *          A class used to parse a csv file and create triples
+ *  A class used to parse a csv file and create triples
  */
 
 public class Parser {
@@ -32,6 +31,7 @@ public class Parser {
 	 * 
 	 * @param fileToRead
 	 *            The csv.file you would read
+	 * @param data The data model you want to work with
 	 * @return a Model object for Jena to work with
 	 * 
 	 */
@@ -44,6 +44,7 @@ public class Parser {
 
 		try {
 			File fileToParse = new File(fileToRead);
+			String dbpedia = "http://dbpedia.org/ontology/";
 			reader = new BufferedReader(new FileReader(fileToParse));
 			System.out.println("Loaded: " + fileToParse.getName());
 			System.out.println("-----------------------------");
@@ -67,24 +68,28 @@ public class Parser {
 				Resource res = tempModel.createResource(data.getPrefix() + countryName);
 				
 						res.addProperty(data.getId(),tempModel.createTypedLiteral(index))
-						.addLiteral(data.getRank(), props[0])
+						.addLiteral(data.getRank(), new Integer(props[0]))
 						.addLiteral(data.getSubRegion(), props[2])
-						.addLiteral(data.getLifeExpectancy(), props[3])
-						.addLiteral(data.getWellBeing(), props[4])
-						.addLiteral(data.getHappyLifeYears(), props[5])
-						.addLiteral(data.getFootPrint(), props[6])
-						.addLiteral(data.getHappyIndex(), props[7])
-						.addLiteral(data.getPopulation(), props[8])
-						.addLiteral(data.getGdp(), props[9])
-						.addLiteral(data.getGovRank(), props[10]);
+						.addLiteral(data.getLifeExpectancy(), new Float(props[3]))
+						.addLiteral(data.getWellBeing(), new Float(props[4]))
+						.addLiteral(data.getHappyLifeYears(), new Float(props[5]))
+						.addLiteral(data.getFootPrint(), new Float(props[6]))
+						.addLiteral(data.getHappyIndex(), new Float(props[7]))
+						.addLiteral(data.getPopulation(), new Integer(props[8]))
+						.addLiteral(data.getGdp(), new Integer(props[9]));
+						if(props[10].equals("n/a")){
+							res.addLiteral(data.getGovRank(), props[10]);
+						} else {
+							res.addLiteral(data.getGovRank(), new Integer(props[10]));
+						}
 
-				tempModel.add(res, RDF.type, "country");		
+				tempModel.add(res, RDF.type, dbpedia + "country");		
 						
 				index++;
 
 			}
 
-			System.out.println("Done Motherfucker");
+			System.out.println("Bleep bloop bling blong, I am finished parsing.\n");
 
 		} catch (FileNotFoundException e) {
 			System.out.println("Could not find the specified file");

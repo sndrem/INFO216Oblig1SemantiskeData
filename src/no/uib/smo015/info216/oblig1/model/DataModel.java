@@ -12,7 +12,12 @@ import com.hp.hpl.jena.rdf.model.Model;
 import com.hp.hpl.jena.rdf.model.ModelFactory;
 import com.hp.hpl.jena.rdf.model.Property;
 import com.hp.hpl.jena.tdb.TDBFactory;
-
+/**
+ * @author Sindre Moldeklev
+ * @version 0.0.1
+ * A class used to represent the data model you want to parse information to.
+ *
+ */
 public class DataModel {
 	private Model hpiModel;
 	private Dataset dataset;
@@ -22,7 +27,7 @@ public class DataModel {
 	
 	private Map<String, String> prefixMap;
 	private final String ID = "id", COUNTRY = "country", SUB_REGION = "subRegion", LIFE_EXPECTANCY = "lifeExpectancy", HAPPY_LIFE_YEARS = "happyLifeYears", 
-			FOOTPRINT = "footPrint", HAPPY_INDEX = "happyIndex", POPULATION = "population", GDP = "gdp", GOV_RANK = "govRank", WELL_BEING = "wellBeing", RANK = "rank";
+			FOOTPRINT = "footPrint", HAPPY_INDEX = "happyIndex", POPULATION = "populationTotal", GDP = "grossDomesticProduct", GOV_RANK = "govRank", WELL_BEING = "wellBeing", RANK = "rank";
 	
 	public DataModel(){
 		hpiModel = ModelFactory.createDefaultModel();
@@ -50,6 +55,7 @@ public class DataModel {
 	
 	/**
 	 * Method to map the specified long urls to shorter prefixes
+	 * @param prefixMap the map of the prefixes
 	 */
 	public void prefixMapping(Map<String, String> prefixMap){
 		for(String prefix : prefixMap.keySet()){
@@ -60,6 +66,7 @@ public class DataModel {
 	
 	/**
 	 * Method to write the model to TURTLE-notation
+	 * @param fileName The name of the file you want to save
 	 */
 	public void saveFile(String fileName){
 		FileOutputStream output = null;
@@ -80,16 +87,17 @@ public class DataModel {
 	 */
 	private void createProperties(){
 		prefix = "http://smo015.uib.no/happyPlanetIndex#";
+		String dbpedia = "http://dbpedia.org/ontology/";
 		id = hpiModel.createProperty(prefix + this.ID);
 		rank = hpiModel.createProperty(prefix + this.RANK);
 		country = hpiModel.createProperty(prefix + this.COUNTRY);
 		subRegion = hpiModel.createProperty(prefix + this.SUB_REGION);
-		lifeExpectancy = hpiModel.createProperty(prefix + this.LIFE_EXPECTANCY);
+		lifeExpectancy = hpiModel.createProperty(dbpedia + this.LIFE_EXPECTANCY);
 		happyLifeYears = hpiModel.createProperty(prefix + this.HAPPY_LIFE_YEARS);
 		footPrint = hpiModel.createProperty(prefix + this.FOOTPRINT);
 		happyIndex = hpiModel.createProperty(prefix + this.HAPPY_INDEX);
-		population = hpiModel.createProperty(prefix + this.POPULATION);
-		gdp = hpiModel.createProperty(prefix + this.GDP);
+		population = hpiModel.createProperty(dbpedia + this.POPULATION);
+		gdp = hpiModel.createProperty(dbpedia + this.GDP);
 		govRank = hpiModel.createProperty(prefix + this.GOV_RANK);
 		wellBeing = hpiModel.createProperty(prefix + this.WELL_BEING);
 	}
