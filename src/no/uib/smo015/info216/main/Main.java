@@ -25,7 +25,8 @@ public class Main {
 
 		model.prefixMapping(map);
 		
-//		model.saveFile("/Users/Sindre/Dropbox/info216 oblig/216/framføringsFil.ttl");
+		model.saveFile("/Users/Sindre/Dropbox/info216 oblig/216/framføringsFil.ttl");
+		System.out.println("------------------");
 		
 		model.printModel();
 	}
