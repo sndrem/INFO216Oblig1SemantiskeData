@@ -56,9 +56,6 @@ public class DataModel {
 		}
 	}
 	
-	/**
-	 * 
-	 */
 	
 	/**
 	 * Method to write the model to TURTLE-notation
