@@ -6,16 +6,15 @@ import java.util.Map;
 import no.uib.smo015.info216.oblig1.model.DataModel;
 
 /**
- * @author Sindre
- * @version 0.0.1
  * The main class used to run the application
+ * @author Sindre Moldelev
+ * @version 0.0.1
  */
 public class Main {
 	
 	private static Map<String, String> map;
 
 	public static void main(String[] args) {
-
 		DataModel model = new DataModel();
 		
 		map = new HashMap<>();

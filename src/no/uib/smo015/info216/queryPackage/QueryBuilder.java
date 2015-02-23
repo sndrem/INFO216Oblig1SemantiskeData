@@ -39,6 +39,7 @@ public class QueryBuilder {
 	 * Method to exequte a query
 	 * @deprecated
 	 */
+	@Deprecated
 	public void executeQuery(String queryString){
 		Query query = QueryFactory.create(queryString);
 		try (QueryExecution exe = QueryExecutionFactory.create(query, myModel)) {

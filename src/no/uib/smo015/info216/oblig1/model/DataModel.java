@@ -13,9 +13,9 @@ import com.hp.hpl.jena.rdf.model.ModelFactory;
 import com.hp.hpl.jena.rdf.model.Property;
 import com.hp.hpl.jena.tdb.TDBFactory;
 /**
+ * A class used to represent the data model you want to parse information to.
  * @author Sindre Moldeklev
  * @version 0.0.1
- * A class used to represent the data model you want to parse information to.
  *
  */
 public class DataModel {

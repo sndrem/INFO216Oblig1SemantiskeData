@@ -14,9 +14,9 @@ import com.hp.hpl.jena.vocabulary.RDF;
 
 /**
  * 
- * @author sindremoldeklev
- * @version 0.0.1
  *  A class used to parse a csv file and create triples
+ * @author Sindre Moldeklev
+ * @version 0.0.1
  */
 
 public class Parser {
