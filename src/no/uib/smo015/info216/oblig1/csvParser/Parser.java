@@ -52,7 +52,8 @@ public class Parser {
 
 			while ((line = reader.readLine()) != null) {
 				String[] props = line.split(split);
-				String countryName = compact(props[0]);
+				// Valgt 1 fordi det er kolonne 2 i csv-filen som inneholder countryNames
+				String countryName = compact(props[1]);
 				
 				// System.out.println( "Index " + index + ": [Country] " +
 				// props[0] + " [Sub region] " + props[1] +
@@ -82,18 +83,7 @@ public class Parser {
 							res.addLiteral(data.getGovRank(), new Integer(props[10]));
 						}
 
-				tempModel.add(res, RDF.type, dbpedia + "country")
-						.addLiteral(data.getSubRegion(), props[1])
-						.addLiteral(data.getLifeExpectancy(), props[2])
-						.addLiteral(data.getWellBeing(), props[3])
-						.addLiteral(data.getHappyLifeYears(), props[4])
-						.addLiteral(data.getFootPrint(), props[5])
-						.addLiteral(data.getHappyIndex(), props[6])
-						.addLiteral(data.getPopulation(), props[7])
-						.addLiteral(data.getGdp(), props[8])
-						.addLiteral(data.getGovRank(), props[9]);
-
-				tempModel.add(res, RDF.type, "country");		
+				tempModel.add(res, RDF.type, dbpedia + "country");		
 						
 				index++;
 
