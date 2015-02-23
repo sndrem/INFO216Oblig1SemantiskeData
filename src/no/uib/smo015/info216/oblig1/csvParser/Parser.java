@@ -67,7 +67,6 @@ public class Parser {
 				Resource res = tempModel.createResource(data.getPrefix() + countryName);
 				
 						res.addProperty(data.getId(),tempModel.createTypedLiteral(index))
-<<<<<<< Updated upstream
 						.addLiteral(data.getRank(), new Integer(props[0]))
 						.addLiteral(data.getSubRegion(), props[2])
 						.addLiteral(data.getLifeExpectancy(), new Float(props[3]))
@@ -83,8 +82,7 @@ public class Parser {
 							res.addLiteral(data.getGovRank(), new Integer(props[10]));
 						}
 
-				tempModel.add(res, RDF.type, dbpedia + "country");		
-=======
+				tempModel.add(res, RDF.type, dbpedia + "country")
 						.addLiteral(data.getSubRegion(), props[1])
 						.addLiteral(data.getLifeExpectancy(), props[2])
 						.addLiteral(data.getWellBeing(), props[3])
@@ -96,7 +94,6 @@ public class Parser {
 						.addLiteral(data.getGovRank(), props[9]);
 
 				tempModel.add(res, RDF.type, "country");		
->>>>>>> Stashed changes
 						
 				index++;
 

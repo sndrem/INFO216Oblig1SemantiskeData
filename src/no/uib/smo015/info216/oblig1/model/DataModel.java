@@ -70,11 +70,12 @@ public class DataModel {
 	 */
 	public void saveFile(String fileName){
 		FileOutputStream output = null;
+		File file = new File(fileName);
 		
 		try {
-			output = new FileOutputStream(new File(fileName));
+			output = new FileOutputStream(file);
 			hpiModel.write(output, "TURTLE");
-			System.out.println(fileName + " was succesfully written to file");
+			System.out.println(file.getName() + " was succesfully written to file");
 			
 		} catch (FileNotFoundException e) {
 			// TODO Auto-generated catch block
