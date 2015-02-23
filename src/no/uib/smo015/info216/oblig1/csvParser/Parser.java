@@ -68,15 +68,15 @@ public class Parser {
 				
 						res.addProperty(data.getId(),tempModel.createTypedLiteral(index))
 						.addLiteral(data.getRank(), props[0])
-						.addLiteral(data.getSubRegion(), props[1])
-						.addLiteral(data.getLifeExpectancy(), props[2])
-						.addLiteral(data.getWellBeing(), props[3])
-						.addLiteral(data.getHappyLifeYears(), props[4])
-						.addLiteral(data.getFootPrint(), props[5])
-						.addLiteral(data.getHappyIndex(), props[6])
-						.addLiteral(data.getPopulation(), props[7])
-						.addLiteral(data.getGdp(), props[8])
-						.addLiteral(data.getGovRank(), props[9]);
+						.addLiteral(data.getSubRegion(), props[2])
+						.addLiteral(data.getLifeExpectancy(), props[3])
+						.addLiteral(data.getWellBeing(), props[4])
+						.addLiteral(data.getHappyLifeYears(), props[5])
+						.addLiteral(data.getFootPrint(), props[6])
+						.addLiteral(data.getHappyIndex(), props[7])
+						.addLiteral(data.getPopulation(), props[8])
+						.addLiteral(data.getGdp(), props[9])
+						.addLiteral(data.getGovRank(), props[10]);
 
 				tempModel.add(res, RDF.type, "country");		
 						
