@@ -16,18 +16,14 @@ public class Main {
 		map = new HashMap<>();
 		
 		map.put("hpi", "http://smo015.uib.no/happyPlanetIndex#");
-		map.put("xml", "http://www.w3.org/2001/XMLSchema#");
+		map.put("xsd", "http://www.w3.org/2001/XMLSchema#");
 
 		model.prefixMapping(map);
 		
-//		model.saveFile("testHappyIndex.ttl");
+		
+//		model.saveFile("/Users/Sindre/Dropbox/info216 oblig/216/TestMappe/oppdatertHappyIndex.ttl");
 		
 		model.printModel();
-		
-		
-		
-		
-		
 	}
 
 }
