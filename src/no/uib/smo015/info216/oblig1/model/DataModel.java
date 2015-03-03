@@ -18,6 +18,7 @@ import com.hp.hpl.jena.tdb.TDBFactory;
 import com.hp.hpl.jena.update.UpdateAction;
 import com.hp.hpl.jena.vocabulary.RDF;
 import com.hp.hpl.jena.vocabulary.RDFS;
+import com.hp.hpl.jena.vocabulary.XSD;
 /**
  * A class used to represent the data model you want to parse information to.
  * @author Sindre Moldeklev
@@ -113,19 +114,57 @@ public class DataModel {
 	private void createProperties(){
 		// TODO Legg til properties for egen klasse
 //		prefix = "http://smo015.uib.no/happyPlanetIndex#";
-		id = (Property) hpiModel.createProperty(HappyOnt.NS + this.ID).addProperty(RDFS.domain, HappyOnt.COUNTRY);
-		rank = (Property) hpiModel.createProperty(HappyOnt.NS + this.RANK).addProperty(RDFS.domain, HappyOnt.COUNTRY);
-		country = (Property) hpiModel.createProperty(HappyOnt.NS + this.COUNTRY).addProperty(RDFS.domain, HappyOnt.COUNTRY);
-		subRegion = (Property) hpiModel.createProperty(HappyOnt.NS + this.SUB_REGION).addProperty(RDFS.domain, HappyOnt.COUNTRY);
-		lifeExpectancy = (Property) hpiModel.createProperty(HappyOnt.NS + this.LIFE_EXPECTANCY).addProperty(RDFS.domain, HappyOnt.COUNTRY);
-		happyLifeYears = (Property) hpiModel.createProperty(HappyOnt.NS + this.HAPPY_LIFE_YEARS).addProperty(RDFS.domain, HappyOnt.COUNTRY);
-		footPrint = (Property) hpiModel.createProperty(HappyOnt.NS + this.FOOTPRINT).addProperty(RDFS.domain, HappyOnt.COUNTRY);
-		happyIndex = (Property) hpiModel.createProperty(HappyOnt.NS + this.HAPPY_INDEX).addProperty(RDFS.domain, HappyOnt.COUNTRY);
-		population = (Property) hpiModel.createProperty(HappyOnt.NS + this.POPULATION).addProperty(RDFS.domain, HappyOnt.COUNTRY);
-		gdp = (Property) hpiModel.createProperty(HappyOnt.NS + this.GDP).addProperty(RDFS.domain, HappyOnt.COUNTRY);
-		govRank = (Property) hpiModel.createProperty(HappyOnt.NS + this.GOV_RANK).addProperty(RDFS.domain, HappyOnt.COUNTRY);
-		wellBeing = (Property) hpiModel.createProperty(HappyOnt.NS + this.WELL_BEING).addProperty(RDFS.domain, HappyOnt.COUNTRY);
-		region = (Property) hpiModel.createProperty(HappyOnt.NS + this.REGION).addProperty(RDFS.domain, HappyOnt.COUNTRY);
+		id = (Property) hpiModel.createProperty(HappyOnt.NS + this.ID)
+			.addProperty(RDFS.domain, HappyOnt.COUNTRY)
+			.addProperty(RDFS.range, XSD.xint);
+		
+		rank = (Property) hpiModel.createProperty(HappyOnt.NS + this.RANK)
+				.addProperty(RDFS.domain, HappyOnt.COUNTRY)
+				.addProperty(RDFS.range, XSD.xint);
+		
+		country = (Property) hpiModel.createProperty(HappyOnt.NS + this.COUNTRY)
+				.addProperty(RDFS.domain, HappyOnt.COUNTRY)
+				.addProperty(RDFS.range, XSD.xstring);
+		
+		subRegion = (Property) hpiModel.createProperty(HappyOnt.NS + this.SUB_REGION)
+				.addProperty(RDFS.domain, HappyOnt.COUNTRY)
+				.addProperty(RDFS.range, XSD.xstring);
+		
+		lifeExpectancy = (Property) hpiModel.createProperty(HappyOnt.NS + this.LIFE_EXPECTANCY)
+				.addProperty(RDFS.domain, HappyOnt.COUNTRY)
+				.addProperty(RDFS.range, XSD.xfloat);
+		
+		happyLifeYears = (Property) hpiModel.createProperty(HappyOnt.NS + this.HAPPY_LIFE_YEARS)
+				.addProperty(RDFS.domain, HappyOnt.COUNTRY)
+				.addProperty(RDFS.range, XSD.xfloat);
+		
+		footPrint = (Property) hpiModel.createProperty(HappyOnt.NS + this.FOOTPRINT)
+				.addProperty(RDFS.domain, HappyOnt.COUNTRY)
+				.addProperty(RDFS.range, XSD.xfloat);
+		
+		happyIndex = (Property) hpiModel.createProperty(HappyOnt.NS + this.HAPPY_INDEX)
+				.addProperty(RDFS.domain, HappyOnt.COUNTRY)
+				.addProperty(RDFS.range, XSD.xfloat);
+		
+		population = (Property) hpiModel.createProperty(HappyOnt.NS + this.POPULATION)
+				.addProperty(RDFS.domain, HappyOnt.COUNTRY)
+				.addProperty(RDFS.range, XSD.xlong);
+		
+		gdp = (Property) hpiModel.createProperty(HappyOnt.NS + this.GDP)
+				.addProperty(RDFS.domain, HappyOnt.COUNTRY)
+				.addProperty(RDFS.range, XSD.xint);
+		
+		govRank = (Property) hpiModel.createProperty(HappyOnt.NS + this.GOV_RANK)
+				.addProperty(RDFS.domain, HappyOnt.COUNTRY)
+				.addProperty(RDFS.range, XSD.xint);
+		
+		wellBeing = (Property) hpiModel.createProperty(HappyOnt.NS + this.WELL_BEING)
+				.addProperty(RDFS.domain, HappyOnt.COUNTRY)
+				.addProperty(RDFS.range, XSD.xfloat);
+		
+		region = (Property) hpiModel.createProperty(HappyOnt.NS + this.REGION)
+				.addProperty(RDFS.domain, HappyOnt.COUNTRY)
+				.addProperty(RDFS.range, XSD.xstring);
 	}
 
 	
