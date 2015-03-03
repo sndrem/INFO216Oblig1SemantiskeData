@@ -5,13 +5,19 @@ import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.util.Map;
 
+import no.uib.smo015.info216.HappyOntology.HappyOnt;
 import no.uib.smo015.info216.oblig1.csvParser.Parser;
 
 import com.hp.hpl.jena.query.Dataset;
+import com.hp.hpl.jena.rdf.model.InfModel;
 import com.hp.hpl.jena.rdf.model.Model;
 import com.hp.hpl.jena.rdf.model.ModelFactory;
 import com.hp.hpl.jena.rdf.model.Property;
+import com.hp.hpl.jena.reasoner.ValidityReport;
 import com.hp.hpl.jena.tdb.TDBFactory;
+import com.hp.hpl.jena.update.UpdateAction;
+import com.hp.hpl.jena.vocabulary.RDF;
+import com.hp.hpl.jena.vocabulary.RDFS;
 /**
  * A class used to represent the data model you want to parse information to.
  * @author Sindre Moldeklev
@@ -20,21 +26,39 @@ import com.hp.hpl.jena.tdb.TDBFactory;
  */
 public class DataModel {
 	private Model hpiModel;
+	private InfModel rdfsModel;
 	private Dataset dataset;
 	private Parser fileParser;
 	private String prefix;
-	private Property id, country, subRegion, lifeExpectancy, wellBeing, happyLifeYears, footPrint, happyIndex, population, gdp, govRank, type, rank;
+	private Property id, country, subRegion, region, lifeExpectancy, wellBeing, happyLifeYears, footPrint, happyIndex, population, gdp, govRank, type, rank;
 	
 	private Map<String, String> prefixMap;
 	private final String ID = "id", COUNTRY = "country", SUB_REGION = "subRegion", LIFE_EXPECTANCY = "lifeExpectancy", HAPPY_LIFE_YEARS = "happyLifeYears", 
-			FOOTPRINT = "footPrint", HAPPY_INDEX = "happyIndex", POPULATION = "populationTotal", GDP = "grossDomesticProduct", GOV_RANK = "govRank", WELL_BEING = "wellBeing", RANK = "rank";
+			FOOTPRINT = "footPrint", HAPPY_INDEX = "happyIndex", POPULATION = "populationTotal", GDP = "grossDomesticProduct", GOV_RANK = "govRank", WELL_BEING = "wellBeing", RANK = "rank",
+			REGION = "region";
 	
 	public DataModel(){
 		hpiModel = ModelFactory.createDefaultModel();
+		rdfsModel = ModelFactory.createRDFSModel(hpiModel);
 		dataset = TDBFactory.createDataset("hpiDataset/");
 		createProperties();
 		populateModel();
+//		updateStatements();
 		dataset.close();
+	}
+	
+	/**
+	 * Method to add statements about each country
+	 */
+	private void updateStatements(){
+		UpdateAction.parseExecute(""
+				+ "PREFIX hpi: <" + this.prefix + ">"
+				+ "PREFIX rdf: <" + RDF.getURI() + ">"
+				+ "PREFIX rdfs: <" + RDFS.getURI() + ">"
+				+ ""
+				+ "INSERT DATA {?country ?p ?object . }"
+				+ "where { ?country a " + prefix + "\"country\" ." 
+				+ "?p rdfs:domain ?country . }", dataset);
 	}
 	
 	/**
@@ -42,7 +66,6 @@ public class DataModel {
 	 */
 	public void populateModel(){
 		fileParser = new Parser();
-		
 		fileParser.readFile(this, "data/Riktig_HPI_Index.csv");
 	}
 	
@@ -50,7 +73,9 @@ public class DataModel {
 	 * Method to print a model to the console in turle notation
 	 */
 	public void printModel(){
-		hpiModel.write(System.out, "TURTLE");
+		rdfsModel.write(System.out, "TURTLE");
+		ValidityReport report = rdfsModel.validate();
+		System.out.println(report.isValid());
 	}
 	
 	/**
@@ -86,20 +111,21 @@ public class DataModel {
 	 * Method to create the properties for the model
 	 */
 	private void createProperties(){
-		prefix = "http://smo015.uib.no/happyPlanetIndex#";
-		String dbpedia = "http://dbpedia.org/ontology/";
-		id = hpiModel.createProperty(prefix + this.ID);
-		rank = hpiModel.createProperty(prefix + this.RANK);
-		country = hpiModel.createProperty(prefix + this.COUNTRY);
-		subRegion = hpiModel.createProperty(prefix + this.SUB_REGION);
-		lifeExpectancy = hpiModel.createProperty(dbpedia + this.LIFE_EXPECTANCY);
-		happyLifeYears = hpiModel.createProperty(prefix + this.HAPPY_LIFE_YEARS);
-		footPrint = hpiModel.createProperty(prefix + this.FOOTPRINT);
-		happyIndex = hpiModel.createProperty(prefix + this.HAPPY_INDEX);
-		population = hpiModel.createProperty(dbpedia + this.POPULATION);
-		gdp = hpiModel.createProperty(dbpedia + this.GDP);
-		govRank = hpiModel.createProperty(prefix + this.GOV_RANK);
-		wellBeing = hpiModel.createProperty(prefix + this.WELL_BEING);
+		// TODO Legg til properties for egen klasse
+//		prefix = "http://smo015.uib.no/happyPlanetIndex#";
+		id = (Property) hpiModel.createProperty(HappyOnt.NS + this.ID).addProperty(RDFS.domain, HappyOnt.COUNTRY);
+		rank = (Property) hpiModel.createProperty(HappyOnt.NS + this.RANK).addProperty(RDFS.domain, HappyOnt.COUNTRY);
+		country = (Property) hpiModel.createProperty(HappyOnt.NS + this.COUNTRY).addProperty(RDFS.domain, HappyOnt.COUNTRY);
+		subRegion = (Property) hpiModel.createProperty(HappyOnt.NS + this.SUB_REGION).addProperty(RDFS.domain, HappyOnt.COUNTRY);
+		lifeExpectancy = (Property) hpiModel.createProperty(HappyOnt.NS + this.LIFE_EXPECTANCY).addProperty(RDFS.domain, HappyOnt.COUNTRY);
+		happyLifeYears = (Property) hpiModel.createProperty(HappyOnt.NS + this.HAPPY_LIFE_YEARS).addProperty(RDFS.domain, HappyOnt.COUNTRY);
+		footPrint = (Property) hpiModel.createProperty(HappyOnt.NS + this.FOOTPRINT).addProperty(RDFS.domain, HappyOnt.COUNTRY);
+		happyIndex = (Property) hpiModel.createProperty(HappyOnt.NS + this.HAPPY_INDEX).addProperty(RDFS.domain, HappyOnt.COUNTRY);
+		population = (Property) hpiModel.createProperty(HappyOnt.NS + this.POPULATION).addProperty(RDFS.domain, HappyOnt.COUNTRY);
+		gdp = (Property) hpiModel.createProperty(HappyOnt.NS + this.GDP).addProperty(RDFS.domain, HappyOnt.COUNTRY);
+		govRank = (Property) hpiModel.createProperty(HappyOnt.NS + this.GOV_RANK).addProperty(RDFS.domain, HappyOnt.COUNTRY);
+		wellBeing = (Property) hpiModel.createProperty(HappyOnt.NS + this.WELL_BEING).addProperty(RDFS.domain, HappyOnt.COUNTRY);
+		region = (Property) hpiModel.createProperty(HappyOnt.NS + this.REGION).addProperty(RDFS.domain, HappyOnt.COUNTRY);
 	}
 
 	
@@ -215,6 +241,20 @@ public class DataModel {
 	 */
 	public void setSubRegion(Property subRegion) {
 		this.subRegion = subRegion;
+	}
+
+	/**
+	 * @return the region
+	 */
+	public Property getRegion() {
+		return region;
+	}
+
+	/**
+	 * @param region the region to set
+	 */
+	public void setRegion(Property region) {
+		this.region = region;
 	}
 
 	/**
