@@ -22,6 +22,9 @@ import com.hp.hpl.jena.tdb.TDBFactory;
 import com.hp.hpl.jena.update.UpdateAction;
 import com.hp.hpl.jena.vocabulary.RDF;
 import com.hp.hpl.jena.vocabulary.RDFS;
+<<<<<<< HEAD
+>>>>>>> parent of c8c9a40... Lagt til domain og range
+=======
 >>>>>>> parent of c8c9a40... Lagt til domain og range
 /**
  * A class used to represent the data model you want to parse information to.
@@ -107,6 +110,7 @@ public class DataModel {
 		// TODO Legg til properties for egen klasse
 //		prefix = "http://smo015.uib.no/happyPlanetIndex#";
 <<<<<<< HEAD
+<<<<<<< HEAD
 		id = (Property) hpiModel.createProperty(HappyOnt.NS + this.ID)
 			.addProperty(RDFS.domain, HappyOnt.COUNTRY)
 			.addProperty(RDFS.range, XSD.xint);
@@ -161,6 +165,8 @@ public class DataModel {
 		
 				
 =======
+=======
+>>>>>>> parent of c8c9a40... Lagt til domain og range
 		id = (Property) hpiModel.createProperty(HappyOnt.NS + this.ID).addProperty(RDFS.domain, HappyOnt.COUNTRY);
 		rank = (Property) hpiModel.createProperty(HappyOnt.NS + this.RANK).addProperty(RDFS.domain, HappyOnt.COUNTRY);
 		country = (Property) hpiModel.createProperty(HappyOnt.NS + this.COUNTRY).addProperty(RDFS.domain, HappyOnt.COUNTRY);
@@ -174,6 +180,9 @@ public class DataModel {
 		govRank = (Property) hpiModel.createProperty(HappyOnt.NS + this.GOV_RANK).addProperty(RDFS.domain, HappyOnt.COUNTRY);
 		wellBeing = (Property) hpiModel.createProperty(HappyOnt.NS + this.WELL_BEING).addProperty(RDFS.domain, HappyOnt.COUNTRY);
 		region = (Property) hpiModel.createProperty(HappyOnt.NS + this.REGION).addProperty(RDFS.domain, HappyOnt.COUNTRY);
+<<<<<<< HEAD
+>>>>>>> parent of c8c9a40... Lagt til domain og range
+=======
 >>>>>>> parent of c8c9a40... Lagt til domain og range
 	}
 
