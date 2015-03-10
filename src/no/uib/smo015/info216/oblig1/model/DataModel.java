@@ -1,7 +1,28 @@
 package no.uib.smo015.info216.oblig1.model;
 
+<<<<<<< HEAD
 import src.no.uib.smo015.info216.HappyOntology.HappyOnt;
 import src.no.uib.smo015.info216.oblig1.csvParser.Parser;
+=======
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.util.Map;
+
+import no.uib.smo015.info216.HappyOntology.HappyOnt;
+import no.uib.smo015.info216.oblig1.csvParser.Parser;
+
+import com.hp.hpl.jena.query.Dataset;
+import com.hp.hpl.jena.rdf.model.InfModel;
+import com.hp.hpl.jena.rdf.model.Model;
+import com.hp.hpl.jena.rdf.model.ModelFactory;
+import com.hp.hpl.jena.rdf.model.Property;
+import com.hp.hpl.jena.reasoner.ValidityReport;
+import com.hp.hpl.jena.tdb.TDBFactory;
+import com.hp.hpl.jena.update.UpdateAction;
+import com.hp.hpl.jena.vocabulary.RDF;
+import com.hp.hpl.jena.vocabulary.RDFS;
+>>>>>>> parent of c8c9a40... Lagt til domain og range
 /**
  * A class used to represent the data model you want to parse information to.
  * @author Sindre Moldeklev
@@ -85,6 +106,7 @@ public class DataModel {
 	private void createProperties(){
 		// TODO Legg til properties for egen klasse
 //		prefix = "http://smo015.uib.no/happyPlanetIndex#";
+<<<<<<< HEAD
 		id = (Property) hpiModel.createProperty(HappyOnt.NS + this.ID)
 			.addProperty(RDFS.domain, HappyOnt.COUNTRY)
 			.addProperty(RDFS.range, XSD.xint);
@@ -138,6 +160,21 @@ public class DataModel {
 				.addProperty(RDFS.range, XSD.xstring);
 		
 				
+=======
+		id = (Property) hpiModel.createProperty(HappyOnt.NS + this.ID).addProperty(RDFS.domain, HappyOnt.COUNTRY);
+		rank = (Property) hpiModel.createProperty(HappyOnt.NS + this.RANK).addProperty(RDFS.domain, HappyOnt.COUNTRY);
+		country = (Property) hpiModel.createProperty(HappyOnt.NS + this.COUNTRY).addProperty(RDFS.domain, HappyOnt.COUNTRY);
+		subRegion = (Property) hpiModel.createProperty(HappyOnt.NS + this.SUB_REGION).addProperty(RDFS.domain, HappyOnt.COUNTRY);
+		lifeExpectancy = (Property) hpiModel.createProperty(HappyOnt.NS + this.LIFE_EXPECTANCY).addProperty(RDFS.domain, HappyOnt.COUNTRY);
+		happyLifeYears = (Property) hpiModel.createProperty(HappyOnt.NS + this.HAPPY_LIFE_YEARS).addProperty(RDFS.domain, HappyOnt.COUNTRY);
+		footPrint = (Property) hpiModel.createProperty(HappyOnt.NS + this.FOOTPRINT).addProperty(RDFS.domain, HappyOnt.COUNTRY);
+		happyIndex = (Property) hpiModel.createProperty(HappyOnt.NS + this.HAPPY_INDEX).addProperty(RDFS.domain, HappyOnt.COUNTRY);
+		population = (Property) hpiModel.createProperty(HappyOnt.NS + this.POPULATION).addProperty(RDFS.domain, HappyOnt.COUNTRY);
+		gdp = (Property) hpiModel.createProperty(HappyOnt.NS + this.GDP).addProperty(RDFS.domain, HappyOnt.COUNTRY);
+		govRank = (Property) hpiModel.createProperty(HappyOnt.NS + this.GOV_RANK).addProperty(RDFS.domain, HappyOnt.COUNTRY);
+		wellBeing = (Property) hpiModel.createProperty(HappyOnt.NS + this.WELL_BEING).addProperty(RDFS.domain, HappyOnt.COUNTRY);
+		region = (Property) hpiModel.createProperty(HappyOnt.NS + this.REGION).addProperty(RDFS.domain, HappyOnt.COUNTRY);
+>>>>>>> parent of c8c9a40... Lagt til domain og range
 	}
 
 	
