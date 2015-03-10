@@ -14,6 +14,8 @@ import com.hp.hpl.jena.rdf.model.Model;
 import com.hp.hpl.jena.rdf.model.Property;
 import com.hp.hpl.jena.reasoner.ValidityReport;
 import com.hp.hpl.jena.tdb.TDBFactory;
+import com.hp.hpl.jena.vocabulary.OWL;
+import com.hp.hpl.jena.vocabulary.RDF;
 import com.hp.hpl.jena.vocabulary.RDFS;
 import com.hp.hpl.jena.vocabulary.XSD;
 /**
@@ -38,7 +40,6 @@ public class DataModel {
 	public DataModel(){
 		dataset = TDBFactory.createDataset("hpiDataset/");
 		hpiModel = dataset.getDefaultModel();
-	
 		hpiModel.begin();
 		createProperties();
 		populateModel();
@@ -101,7 +102,9 @@ public class DataModel {
 //		prefix = "http://smo015.uib.no/happyPlanetIndex#";
 		id = (Property) hpiModel.createProperty(HappyOnt.NS + this.ID)
 			.addProperty(RDFS.domain, HappyOnt.COUNTRY)
-			.addProperty(RDFS.range, XSD.xint);
+			.addProperty(RDFS.range, XSD.xint)
+			.addProperty(RDF.type, OWL.FunctionalProperty)
+			.addProperty(RDF.type, OWL.InverseFunctionalProperty);
 		
 		rank = (Property) hpiModel.createProperty(HappyOnt.NS + this.RANK)
 				.addProperty(RDFS.domain, HappyOnt.COUNTRY)
