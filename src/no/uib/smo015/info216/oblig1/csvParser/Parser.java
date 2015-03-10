@@ -5,6 +5,7 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
+import java.text.NumberFormat;
 
 import no.uib.smo015.info216.HappyOntology.HappyOnt;
 import no.uib.smo015.info216.oblig1.model.DataModel;
@@ -68,6 +69,7 @@ public class Parser {
 				// " [GDP/Capital] " + props[8] + " [Governance rank] " +
 				// props[9]);
 				//
+				NumberFormat nf = NumberFormat.getInstance();
 				Resource res = tempModel.createResource(HappyOnt.NS + countryName);
 						res.addProperty(data.getId(),tempModel.createTypedLiteral(index))
 						.addLiteral(data.getRank(), new Integer(props[0]))
@@ -77,8 +79,8 @@ public class Parser {
 						.addLiteral(data.getHappyLifeYears(), new Float(props[5]))
 						.addLiteral(data.getFootPrint(), new Float(props[6]))
 						.addLiteral(data.getHappyIndex(), new Float(props[7]))
-						.addLiteral(data.getPopulation(), new Integer(props[8]))
-						.addLiteral(data.getGdp(), new Integer(props[9]))
+						.addLiteral(data.getPopulation(), nf.format(new Integer(props[8].toString())))
+						.addLiteral(data.getGdp(), nf.format(new Integer(props[9])))
 						.addLiteral(data.getRegion(), computeRegion(props[2]))
 						.addProperty(RDF.type, HappyOnt.COUNTRY)
 						.addProperty(RDFS.label, StringUtilities.underscoreRemoval(countryName))

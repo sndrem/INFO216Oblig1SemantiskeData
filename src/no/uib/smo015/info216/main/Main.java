@@ -33,7 +33,6 @@ public class Main {
 //		model.printModel();
 		System.out.println("------------");
 		
-
 //		model.saveFile("/Users/Sindre/Dropbox/info216 oblig/216/framføringsFil.ttl");
 	}
 

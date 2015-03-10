@@ -12,7 +12,6 @@ import com.hp.hpl.jena.query.Dataset;
 import com.hp.hpl.jena.rdf.model.InfModel;
 import com.hp.hpl.jena.rdf.model.Model;
 import com.hp.hpl.jena.rdf.model.Property;
-import com.hp.hpl.jena.reasoner.ValidityReport;
 import com.hp.hpl.jena.tdb.TDBFactory;
 import com.hp.hpl.jena.vocabulary.OWL;
 import com.hp.hpl.jena.vocabulary.RDF;
@@ -38,8 +37,12 @@ public class DataModel {
 			REGION = "region";
 	
 	public DataModel(){
+		//Opprett datasett
 		dataset = TDBFactory.createDataset("hpiDataset/");
+		
+		//Få modellen inn i datasettet
 		hpiModel = dataset.getDefaultModel();
+//		hpiModel = ModelFactory.createDefaultModel();
 		hpiModel.begin();
 		createProperties();
 		populateModel();
@@ -61,8 +64,8 @@ public class DataModel {
 	 */
 	public void printModel(){
 		hpiModel.write(System.out, "TURTLE");
-		ValidityReport report = rdfsModel.validate();
-		System.out.println(report.isValid());
+//		ValidityReport report = rdfsModel.validate();
+//		System.out.println(report.isValid());
 	}
 	
 	/**
@@ -104,55 +107,68 @@ public class DataModel {
 			.addProperty(RDFS.domain, HappyOnt.COUNTRY)
 			.addProperty(RDFS.range, XSD.xint)
 			.addProperty(RDF.type, OWL.FunctionalProperty)
-			.addProperty(RDF.type, OWL.InverseFunctionalProperty);
+			.addProperty(RDF.type, OWL.InverseFunctionalProperty)
+			.addProperty(RDF.type, OWL.DatatypeProperty);
 		
 		rank = (Property) hpiModel.createProperty(HappyOnt.NS + this.RANK)
 				.addProperty(RDFS.domain, HappyOnt.COUNTRY)
-				.addProperty(RDFS.range, XSD.xint);
+				.addProperty(RDFS.range, XSD.xint)
+				.addProperty(RDF.type, OWL.DatatypeProperty);
 		
 		country = (Property) hpiModel.createProperty(HappyOnt.NS + this.COUNTRY)
 				.addProperty(RDFS.domain, HappyOnt.COUNTRY)
-				.addProperty(RDFS.range, XSD.xstring);
+				.addProperty(RDFS.range, XSD.xstring)
+				.addProperty(RDF.type, OWL.DatatypeProperty);
 		
 		subRegion = (Property) hpiModel.createProperty(HappyOnt.NS + this.SUB_REGION)
 				.addProperty(RDFS.domain, HappyOnt.COUNTRY)
-				.addProperty(RDFS.range, XSD.xstring);
+				.addProperty(RDFS.range, XSD.xstring)
+				.addProperty(RDF.type, OWL.DatatypeProperty);
 		
 		lifeExpectancy = (Property) hpiModel.createProperty(HappyOnt.NS + this.LIFE_EXPECTANCY)
 				.addProperty(RDFS.domain, HappyOnt.COUNTRY)
-				.addProperty(RDFS.range, XSD.xfloat);
+				.addProperty(RDFS.range, XSD.xfloat)
+				.addProperty(RDF.type, OWL.DatatypeProperty);
 		
 		happyLifeYears = (Property) hpiModel.createProperty(HappyOnt.NS + this.HAPPY_LIFE_YEARS)
 				.addProperty(RDFS.domain, HappyOnt.COUNTRY)
-				.addProperty(RDFS.range, XSD.xfloat);
+				.addProperty(RDFS.range, XSD.xfloat)
+				.addProperty(RDF.type, OWL.DatatypeProperty);
 		
 		footPrint = (Property) hpiModel.createProperty(HappyOnt.NS + this.FOOTPRINT)
 				.addProperty(RDFS.domain, HappyOnt.COUNTRY)
-				.addProperty(RDFS.range, XSD.xfloat);
+				.addProperty(RDFS.range, XSD.xfloat)
+				.addProperty(RDF.type, OWL.DatatypeProperty);
 		
 		happyIndex = (Property) hpiModel.createProperty(HappyOnt.NS + this.HAPPY_INDEX)
 				.addProperty(RDFS.domain, HappyOnt.COUNTRY)
-				.addProperty(RDFS.range, XSD.xfloat);
+				.addProperty(RDFS.range, XSD.xfloat)
+				.addProperty(RDF.type, OWL.DatatypeProperty);
 		
 		population = (Property) hpiModel.createProperty(HappyOnt.NS + this.POPULATION)
 				.addProperty(RDFS.domain, HappyOnt.COUNTRY)
-				.addProperty(RDFS.range, XSD.xlong);
+				.addProperty(RDFS.range, XSD.xlong)
+				.addProperty(RDF.type, OWL.DatatypeProperty);
 		
 		gdp = (Property) hpiModel.createProperty(HappyOnt.NS + this.GDP)
 				.addProperty(RDFS.domain, HappyOnt.COUNTRY)
-				.addProperty(RDFS.range, XSD.xint);
+				.addProperty(RDFS.range, XSD.xint)
+				.addProperty(RDF.type, OWL.DatatypeProperty);
 		
 		govRank = (Property) hpiModel.createProperty(HappyOnt.NS + this.GOV_RANK)
 				.addProperty(RDFS.domain, HappyOnt.COUNTRY)
-				.addProperty(RDFS.range, XSD.xint);
+				.addProperty(RDFS.range, XSD.xint)
+				.addProperty(RDF.type, OWL.DatatypeProperty);
 		
 		wellBeing = (Property) hpiModel.createProperty(HappyOnt.NS + this.WELL_BEING)
 				.addProperty(RDFS.domain, HappyOnt.COUNTRY)
-				.addProperty(RDFS.range, XSD.xfloat);
+				.addProperty(RDFS.range, XSD.xfloat)
+				.addProperty(RDF.type, OWL.DatatypeProperty);
 		
 		region = (Property) hpiModel.createProperty(HappyOnt.NS + this.REGION)
 				.addProperty(RDFS.domain, HappyOnt.COUNTRY)
-				.addProperty(RDFS.range, XSD.xstring);
+				.addProperty(RDFS.range, XSD.xstring)
+				.addProperty(RDF.type, OWL.DatatypeProperty);
 	}
 
 	
