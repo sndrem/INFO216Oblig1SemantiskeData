@@ -1,24 +1,7 @@
 package no.uib.smo015.info216.oblig1.model;
 
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
-import java.util.Map;
-
-import no.uib.smo015.info216.HappyOntology.HappyOnt;
-import no.uib.smo015.info216.oblig1.csvParser.Parser;
-
-import com.hp.hpl.jena.query.Dataset;
-import com.hp.hpl.jena.rdf.model.InfModel;
-import com.hp.hpl.jena.rdf.model.Model;
-import com.hp.hpl.jena.rdf.model.ModelFactory;
-import com.hp.hpl.jena.rdf.model.Property;
-import com.hp.hpl.jena.reasoner.ValidityReport;
-import com.hp.hpl.jena.tdb.TDBFactory;
-import com.hp.hpl.jena.update.UpdateAction;
-import com.hp.hpl.jena.vocabulary.RDF;
-import com.hp.hpl.jena.vocabulary.RDFS;
-import com.hp.hpl.jena.vocabulary.XSD;
+import src.no.uib.smo015.info216.HappyOntology.HappyOnt;
+import src.no.uib.smo015.info216.oblig1.csvParser.Parser;
 /**
  * A class used to represent the data model you want to parse information to.
  * @author Sindre Moldeklev
@@ -31,7 +14,8 @@ public class DataModel {
 	private Dataset dataset;
 	private Parser fileParser;
 	private String prefix;
-	private Property id, country, subRegion, region, lifeExpectancy, wellBeing, happyLifeYears, footPrint, happyIndex, population, gdp, govRank, type, rank;
+	private Property id, country, subRegion, region, lifeExpectancy, wellBeing, happyLifeYears, 
+					footPrint, happyIndex, population, gdp, govRank, type, rank, countryLabel;
 	
 	private Map<String, String> prefixMap;
 	private final String ID = "id", COUNTRY = "country", SUB_REGION = "subRegion", LIFE_EXPECTANCY = "lifeExpectancy", HAPPY_LIFE_YEARS = "happyLifeYears", 
@@ -44,22 +28,7 @@ public class DataModel {
 		dataset = TDBFactory.createDataset("hpiDataset/");
 		createProperties();
 		populateModel();
-//		updateStatements();
 		dataset.close();
-	}
-	
-	/**
-	 * Method to add statements about each country
-	 */
-	private void updateStatements(){
-		UpdateAction.parseExecute(""
-				+ "PREFIX hpi: <" + this.prefix + ">"
-				+ "PREFIX rdf: <" + RDF.getURI() + ">"
-				+ "PREFIX rdfs: <" + RDFS.getURI() + ">"
-				+ ""
-				+ "INSERT DATA {?country ?p ?object . }"
-				+ "where { ?country a " + prefix + "\"country\" ." 
-				+ "?p rdfs:domain ?country . }", dataset);
 	}
 	
 	/**
@@ -76,7 +45,9 @@ public class DataModel {
 	public void printModel(){
 		rdfsModel.write(System.out, "TURTLE");
 		ValidityReport report = rdfsModel.validate();
-		System.out.println(report.isValid());
+		if(report.isValid()){
+			System.out.println("Modellen er valid");
+		} else System.out.println("Modellen er ikke valid");
 	}
 	
 	/**
@@ -165,6 +136,8 @@ public class DataModel {
 		region = (Property) hpiModel.createProperty(HappyOnt.NS + this.REGION)
 				.addProperty(RDFS.domain, HappyOnt.COUNTRY)
 				.addProperty(RDFS.range, XSD.xstring);
+		
+				
 	}
 
 	
@@ -434,6 +407,14 @@ public class DataModel {
 	 */
 	public void setRank(Property rank) {
 		this.rank = rank;
+	}
+
+	public Property getCountryLabel() {
+		return countryLabel;
+	}
+
+	public void setCountryLabel(Property countryLabel) {
+		this.countryLabel = countryLabel;
 	}
 	
 	

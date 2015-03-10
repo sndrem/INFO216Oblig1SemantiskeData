@@ -11,6 +11,8 @@ import no.uib.smo015.info216.oblig1.model.DataModel;
 
 import com.hp.hpl.jena.rdf.model.Model;
 import com.hp.hpl.jena.rdf.model.Resource;
+import com.hp.hpl.jena.vocabulary.RDF;
+import com.hp.hpl.jena.vocabulary.RDFS;
 
 /**
  * 
@@ -75,15 +77,14 @@ public class Parser {
 						.addLiteral(data.getHappyIndex(), new Float(props[7]))
 						.addLiteral(data.getPopulation(), new Integer(props[8]))
 						.addLiteral(data.getGdp(), new Integer(props[9]))
-						.addLiteral(data.getRegion(), computeRegion(props[2]));
+						.addLiteral(data.getRegion(), computeRegion(props[2]))
+						.addProperty(RDF.type, HappyOnt.COUNTRY)
+						.addProperty(RDFS.label, countryName);
 						if(props[10].equals("n/a")){
 							res.addLiteral(data.getGovRank(), props[10]);
 						} else {
 							res.addLiteral(data.getGovRank(), new Integer(props[10]));
-						}
-
-				//tempModel.add(res, RDF.type, "country");		
-						
+						}						
 				index++;
 
 			}
