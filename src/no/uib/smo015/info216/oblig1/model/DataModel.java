@@ -1,9 +1,5 @@
 package no.uib.smo015.info216.oblig1.model;
 
-<<<<<<< HEAD
-import src.no.uib.smo015.info216.HappyOntology.HappyOnt;
-import src.no.uib.smo015.info216.oblig1.csvParser.Parser;
-=======
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
@@ -22,10 +18,7 @@ import com.hp.hpl.jena.tdb.TDBFactory;
 import com.hp.hpl.jena.update.UpdateAction;
 import com.hp.hpl.jena.vocabulary.RDF;
 import com.hp.hpl.jena.vocabulary.RDFS;
-<<<<<<< HEAD
->>>>>>> parent of c8c9a40... Lagt til domain og range
-=======
->>>>>>> parent of c8c9a40... Lagt til domain og range
+import com.hp.hpl.jena.vocabulary.XSD;
 /**
  * A class used to represent the data model you want to parse information to.
  * @author Sindre Moldeklev
@@ -38,8 +31,7 @@ public class DataModel {
 	private Dataset dataset;
 	private Parser fileParser;
 	private String prefix;
-	private Property id, country, subRegion, region, lifeExpectancy, wellBeing, happyLifeYears, 
-					footPrint, happyIndex, population, gdp, govRank, type, rank, countryLabel;
+	private Property id, country, subRegion, region, lifeExpectancy, wellBeing, happyLifeYears, footPrint, happyIndex, population, gdp, govRank, type, rank;
 	
 	private Map<String, String> prefixMap;
 	private final String ID = "id", COUNTRY = "country", SUB_REGION = "subRegion", LIFE_EXPECTANCY = "lifeExpectancy", HAPPY_LIFE_YEARS = "happyLifeYears", 
@@ -52,7 +44,22 @@ public class DataModel {
 		dataset = TDBFactory.createDataset("hpiDataset/");
 		createProperties();
 		populateModel();
+//		updateStatements();
 		dataset.close();
+	}
+	
+	/**
+	 * Method to add statements about each country
+	 */
+	private void updateStatements(){
+		UpdateAction.parseExecute(""
+				+ "PREFIX hpi: <" + this.prefix + ">"
+				+ "PREFIX rdf: <" + RDF.getURI() + ">"
+				+ "PREFIX rdfs: <" + RDFS.getURI() + ">"
+				+ ""
+				+ "INSERT DATA {?country ?p ?object . }"
+				+ "where { ?country a " + prefix + "\"country\" ." 
+				+ "?p rdfs:domain ?country . }", dataset);
 	}
 	
 	/**
@@ -69,9 +76,7 @@ public class DataModel {
 	public void printModel(){
 		rdfsModel.write(System.out, "TURTLE");
 		ValidityReport report = rdfsModel.validate();
-		if(report.isValid()){
-			System.out.println("Modellen er valid");
-		} else System.out.println("Modellen er ikke valid");
+		System.out.println(report.isValid());
 	}
 	
 	/**
@@ -109,8 +114,6 @@ public class DataModel {
 	private void createProperties(){
 		// TODO Legg til properties for egen klasse
 //		prefix = "http://smo015.uib.no/happyPlanetIndex#";
-<<<<<<< HEAD
-<<<<<<< HEAD
 		id = (Property) hpiModel.createProperty(HappyOnt.NS + this.ID)
 			.addProperty(RDFS.domain, HappyOnt.COUNTRY)
 			.addProperty(RDFS.range, XSD.xint);
@@ -162,28 +165,6 @@ public class DataModel {
 		region = (Property) hpiModel.createProperty(HappyOnt.NS + this.REGION)
 				.addProperty(RDFS.domain, HappyOnt.COUNTRY)
 				.addProperty(RDFS.range, XSD.xstring);
-		
-				
-=======
-=======
->>>>>>> parent of c8c9a40... Lagt til domain og range
-		id = (Property) hpiModel.createProperty(HappyOnt.NS + this.ID).addProperty(RDFS.domain, HappyOnt.COUNTRY);
-		rank = (Property) hpiModel.createProperty(HappyOnt.NS + this.RANK).addProperty(RDFS.domain, HappyOnt.COUNTRY);
-		country = (Property) hpiModel.createProperty(HappyOnt.NS + this.COUNTRY).addProperty(RDFS.domain, HappyOnt.COUNTRY);
-		subRegion = (Property) hpiModel.createProperty(HappyOnt.NS + this.SUB_REGION).addProperty(RDFS.domain, HappyOnt.COUNTRY);
-		lifeExpectancy = (Property) hpiModel.createProperty(HappyOnt.NS + this.LIFE_EXPECTANCY).addProperty(RDFS.domain, HappyOnt.COUNTRY);
-		happyLifeYears = (Property) hpiModel.createProperty(HappyOnt.NS + this.HAPPY_LIFE_YEARS).addProperty(RDFS.domain, HappyOnt.COUNTRY);
-		footPrint = (Property) hpiModel.createProperty(HappyOnt.NS + this.FOOTPRINT).addProperty(RDFS.domain, HappyOnt.COUNTRY);
-		happyIndex = (Property) hpiModel.createProperty(HappyOnt.NS + this.HAPPY_INDEX).addProperty(RDFS.domain, HappyOnt.COUNTRY);
-		population = (Property) hpiModel.createProperty(HappyOnt.NS + this.POPULATION).addProperty(RDFS.domain, HappyOnt.COUNTRY);
-		gdp = (Property) hpiModel.createProperty(HappyOnt.NS + this.GDP).addProperty(RDFS.domain, HappyOnt.COUNTRY);
-		govRank = (Property) hpiModel.createProperty(HappyOnt.NS + this.GOV_RANK).addProperty(RDFS.domain, HappyOnt.COUNTRY);
-		wellBeing = (Property) hpiModel.createProperty(HappyOnt.NS + this.WELL_BEING).addProperty(RDFS.domain, HappyOnt.COUNTRY);
-		region = (Property) hpiModel.createProperty(HappyOnt.NS + this.REGION).addProperty(RDFS.domain, HappyOnt.COUNTRY);
-<<<<<<< HEAD
->>>>>>> parent of c8c9a40... Lagt til domain og range
-=======
->>>>>>> parent of c8c9a40... Lagt til domain og range
 	}
 
 	
@@ -453,14 +434,6 @@ public class DataModel {
 	 */
 	public void setRank(Property rank) {
 		this.rank = rank;
-	}
-
-	public Property getCountryLabel() {
-		return countryLabel;
-	}
-
-	public void setCountryLabel(Property countryLabel) {
-		this.countryLabel = countryLabel;
 	}
 	
 	
