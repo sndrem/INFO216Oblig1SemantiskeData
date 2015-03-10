@@ -11,12 +11,9 @@ import no.uib.smo015.info216.oblig1.csvParser.Parser;
 import com.hp.hpl.jena.query.Dataset;
 import com.hp.hpl.jena.rdf.model.InfModel;
 import com.hp.hpl.jena.rdf.model.Model;
-import com.hp.hpl.jena.rdf.model.ModelFactory;
 import com.hp.hpl.jena.rdf.model.Property;
 import com.hp.hpl.jena.reasoner.ValidityReport;
 import com.hp.hpl.jena.tdb.TDBFactory;
-import com.hp.hpl.jena.update.UpdateAction;
-import com.hp.hpl.jena.vocabulary.RDF;
 import com.hp.hpl.jena.vocabulary.RDFS;
 import com.hp.hpl.jena.vocabulary.XSD;
 /**
@@ -39,28 +36,16 @@ public class DataModel {
 			REGION = "region";
 	
 	public DataModel(){
-		hpiModel = ModelFactory.createDefaultModel();
-		rdfsModel = ModelFactory.createRDFSModel(hpiModel);
 		dataset = TDBFactory.createDataset("hpiDataset/");
+		hpiModel = dataset.getDefaultModel();
+	
+		hpiModel.begin();
 		createProperties();
 		populateModel();
-//		updateStatements();
+		hpiModel.commit();
 		dataset.close();
 	}
 	
-	/**
-	 * Method to add statements about each country
-	 */
-	private void updateStatements(){
-		UpdateAction.parseExecute(""
-				+ "PREFIX hpi: <" + this.prefix + ">"
-				+ "PREFIX rdf: <" + RDF.getURI() + ">"
-				+ "PREFIX rdfs: <" + RDFS.getURI() + ">"
-				+ ""
-				+ "INSERT DATA {?country ?p ?object . }"
-				+ "where { ?country a " + prefix + "\"country\" ." 
-				+ "?p rdfs:domain ?country . }", dataset);
-	}
 	
 	/**
 	 * Method to populate the model using the parser
@@ -74,7 +59,7 @@ public class DataModel {
 	 * Method to print a model to the console in turle notation
 	 */
 	public void printModel(){
-		rdfsModel.write(System.out, "TURTLE");
+		hpiModel.write(System.out, "TURTLE");
 		ValidityReport report = rdfsModel.validate();
 		System.out.println(report.isValid());
 	}

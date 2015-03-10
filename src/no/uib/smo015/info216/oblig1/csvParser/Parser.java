@@ -8,9 +8,13 @@ import java.io.IOException;
 
 import no.uib.smo015.info216.HappyOntology.HappyOnt;
 import no.uib.smo015.info216.oblig1.model.DataModel;
+import Utils.StringUtilities;
 
 import com.hp.hpl.jena.rdf.model.Model;
 import com.hp.hpl.jena.rdf.model.Resource;
+import com.hp.hpl.jena.vocabulary.OWL;
+import com.hp.hpl.jena.vocabulary.RDF;
+import com.hp.hpl.jena.vocabulary.RDFS;
 
 /**
  * 
@@ -75,7 +79,11 @@ public class Parser {
 						.addLiteral(data.getHappyIndex(), new Float(props[7]))
 						.addLiteral(data.getPopulation(), new Integer(props[8]))
 						.addLiteral(data.getGdp(), new Integer(props[9]))
-						.addLiteral(data.getRegion(), computeRegion(props[2]));
+						.addLiteral(data.getRegion(), computeRegion(props[2]))
+						.addProperty(RDF.type, HappyOnt.COUNTRY)
+						.addProperty(RDFS.label, StringUtilities.underscoreRemoval(countryName))
+						.addProperty(OWL.sameAs, "http://dbpedia.org/ontology/country");
+						//Legg til nye egenskaper
 						if(props[10].equals("n/a")){
 							res.addLiteral(data.getGovRank(), props[10]);
 						} else {

@@ -29,10 +29,10 @@ public class Main {
 		map.put("rdfs", RDFS.getURI());
 		map.put("rdf", RDF.getURI());
 
-		model.prefixMapping(map);
-		
-		model.printModel();
+//		model.prefixMapping(map);
+//		model.printModel();
 		System.out.println("------------");
+		
 
 //		model.saveFile("/Users/Sindre/Dropbox/info216 oblig/216/framføringsFil.ttl");
 	}
