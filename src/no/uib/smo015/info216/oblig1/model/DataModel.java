@@ -5,6 +5,7 @@ import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.util.Map;
 
+import no.uib.smo015.info216.Dbpedia.Dbpedia;
 import no.uib.smo015.info216.HappyOntology.HappyOnt;
 import no.uib.smo015.info216.oblig1.csvParser.Parser;
 
@@ -29,12 +30,14 @@ public class DataModel {
 	private Dataset dataset;
 	private Parser fileParser;
 	private String prefix;
-	private Property id, country, subRegion, region, lifeExpectancy, wellBeing, happyLifeYears, footPrint, happyIndex, population, gdp, govRank, type, rank;
+	private Property id, country, subRegion, region, lifeExpectancy, wellBeing, 
+					happyLifeYears, footPrint, description,  
+					happyIndex, population, gdp, govRank, type, rank;
 	
 	private Map<String, String> prefixMap;
 	private final String ID = "id", COUNTRY = "country", SUB_REGION = "subRegion", LIFE_EXPECTANCY = "lifeExpectancy", HAPPY_LIFE_YEARS = "happyLifeYears", 
 			FOOTPRINT = "footPrint", HAPPY_INDEX = "happyIndex", POPULATION = "populationTotal", GDP = "grossDomesticProduct", GOV_RANK = "govRank", WELL_BEING = "wellBeing", RANK = "rank",
-			REGION = "region";
+			REGION = "region", DESCRIPTION = "description";
 	
 	public DataModel(){
 		//Opprett datasett
@@ -118,7 +121,8 @@ public class DataModel {
 		country = (Property) hpiModel.createProperty(HappyOnt.NS + this.COUNTRY)
 				.addProperty(RDFS.domain, HappyOnt.COUNTRY)
 				.addProperty(RDFS.range, XSD.xstring)
-				.addProperty(RDF.type, OWL.DatatypeProperty);
+				.addProperty(RDF.type, OWL.DatatypeProperty)
+				.addProperty(OWL.sameAs, Dbpedia.COUNTRY);
 		
 		subRegion = (Property) hpiModel.createProperty(HappyOnt.NS + this.SUB_REGION)
 				.addProperty(RDFS.domain, HappyOnt.COUNTRY)
@@ -128,7 +132,8 @@ public class DataModel {
 		lifeExpectancy = (Property) hpiModel.createProperty(HappyOnt.NS + this.LIFE_EXPECTANCY)
 				.addProperty(RDFS.domain, HappyOnt.COUNTRY)
 				.addProperty(RDFS.range, XSD.xfloat)
-				.addProperty(RDF.type, OWL.DatatypeProperty);
+				.addProperty(RDF.type, OWL.DatatypeProperty)
+				.addProperty(OWL.sameAs, Dbpedia.LIFE_EXPECTANCY);
 		
 		happyLifeYears = (Property) hpiModel.createProperty(HappyOnt.NS + this.HAPPY_LIFE_YEARS)
 				.addProperty(RDFS.domain, HappyOnt.COUNTRY)
@@ -148,7 +153,8 @@ public class DataModel {
 		population = (Property) hpiModel.createProperty(HappyOnt.NS + this.POPULATION)
 				.addProperty(RDFS.domain, HappyOnt.COUNTRY)
 				.addProperty(RDFS.range, XSD.xlong)
-				.addProperty(RDF.type, OWL.DatatypeProperty);
+				.addProperty(RDF.type, OWL.DatatypeProperty)
+				.addProperty(OWL.sameAs, Dbpedia.POPULATION);
 		
 		gdp = (Property) hpiModel.createProperty(HappyOnt.NS + this.GDP)
 				.addProperty(RDFS.domain, HappyOnt.COUNTRY)
@@ -166,6 +172,12 @@ public class DataModel {
 				.addProperty(RDF.type, OWL.DatatypeProperty);
 		
 		region = (Property) hpiModel.createProperty(HappyOnt.NS + this.REGION)
+				.addProperty(RDFS.domain, HappyOnt.COUNTRY)
+				.addProperty(RDFS.range, XSD.xstring)
+				.addProperty(RDF.type, OWL.DatatypeProperty)
+				.addProperty(OWL.sameAs, Dbpedia.REGION);
+		
+		description = (Property) hpiModel.createProperty(HappyOnt.NS + this.DESCRIPTION)
 				.addProperty(RDFS.domain, HappyOnt.COUNTRY)
 				.addProperty(RDFS.range, XSD.xstring)
 				.addProperty(RDF.type, OWL.DatatypeProperty);
@@ -438,6 +450,16 @@ public class DataModel {
 	 */
 	public void setRank(Property rank) {
 		this.rank = rank;
+	}
+
+
+	public Property getDescription() {
+		return description;
+	}
+
+
+	public void setDescription(Property description) {
+		this.description = description;
 	}
 	
 	

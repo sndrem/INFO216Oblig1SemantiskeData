@@ -13,7 +13,6 @@ import Utils.StringUtilities;
 
 import com.hp.hpl.jena.rdf.model.Model;
 import com.hp.hpl.jena.rdf.model.Resource;
-import com.hp.hpl.jena.vocabulary.OWL;
 import com.hp.hpl.jena.vocabulary.RDF;
 import com.hp.hpl.jena.vocabulary.RDFS;
 
@@ -84,7 +83,15 @@ public class Parser {
 						.addLiteral(data.getRegion(), computeRegion(props[2]))
 						.addProperty(RDF.type, HappyOnt.COUNTRY)
 						.addProperty(RDFS.label, StringUtilities.underscoreRemoval(countryName))
-						.addProperty(OWL.sameAs, "http://dbpedia.org/ontology/country");
+						.addProperty(data.getDescription(), countryName + " is a country in the region of " + 
+															computeRegion(props[2]) + ".\nIt is localized in the sub region " + 
+						                                    props[2] + ".\nThe population is ca. " + props[8] + 
+						                                    "and the Happy Index was measured to " + props[7] + " in 2012.\n" +
+						                                    "The well being is " + props[4] + " and they have a measured\n" +
+						                                    "happy years of " + props[5] + ". They are ranked as number " + 
+						                                    props[0] + " of all the countries.\nThis is based" +
+						                                    "on their geologial footprint which is " + props[6] + "\nand their" +
+						                                    "well being of " + props[4]);
 						//Legg til nye egenskaper
 						if(props[10].equals("n/a")){
 							res.addLiteral(data.getGovRank(), props[10]);

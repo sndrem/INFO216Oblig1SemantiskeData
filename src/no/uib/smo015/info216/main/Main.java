@@ -31,7 +31,7 @@ public class Main {
 
 //		model.prefixMapping(map);
 //		model.printModel();
-		System.out.println("------------");
+//		System.out.println("------------");
 		
 //		model.saveFile("/Users/Sindre/Dropbox/info216 oblig/216/framføringsFil.ttl");
 	}
