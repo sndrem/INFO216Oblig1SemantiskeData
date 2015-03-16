@@ -8,8 +8,8 @@ import java.io.IOException;
 import java.text.NumberFormat;
 
 import no.uib.smo015.info216.HappyOntology.HappyOnt;
+import no.uib.smo015.info216.Utils.StringUtilities;
 import no.uib.smo015.info216.oblig1.model.DataModel;
-import Utils.StringUtilities;
 
 import com.hp.hpl.jena.rdf.model.Model;
 import com.hp.hpl.jena.rdf.model.Resource;
@@ -78,14 +78,14 @@ public class Parser {
 						.addLiteral(data.getHappyLifeYears(), new Float(props[5]))
 						.addLiteral(data.getFootPrint(), new Float(props[6]))
 						.addLiteral(data.getHappyIndex(), new Float(props[7]))
-						.addLiteral(data.getPopulation(), nf.format(new Integer(props[8].toString())))
+						.addLiteral(data.getPopulation(), new Integer(props[8]))
 						.addLiteral(data.getGdp(), nf.format(new Integer(props[9])))
 						.addLiteral(data.getRegion(), computeRegion(props[2]))
 						.addProperty(RDF.type, HappyOnt.COUNTRY)
-						.addProperty(RDFS.label, StringUtilities.underscoreRemoval(countryName))
+						.addProperty(RDFS.label, StringUtilities.congoConvert(StringUtilities.underscoreRemoval(countryName)))
 						.addProperty(data.getDescription(), countryName + " is a country in the region of " + 
-															computeRegion(props[2]) + ".\nIt is localized in the sub region " + 
-						                                    props[2] + ".\nThe population is ca. " + props[8] + 
+															computeRegion(props[2]) + "." + "\nIt is localized in the sub region " + 
+						                                    props[2] + "." + "\nThe population is ca. " + props[8] + 
 						                                    "and the Happy Index was measured to " + props[7] + " in 2012.\n" +
 						                                    "The well being is " + props[4] + " and they have a measured\n" +
 						                                    "happy years of " + props[5] + ". They are ranked as number " + 
