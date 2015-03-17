@@ -15,5 +15,13 @@ public class Dbpedia {
 	public static final Property POPULATION = model.createProperty("http://dbpedia.org/ontology/population");
 	
 	public static final Property REGION = model.createProperty("http://dbpedia.org/ontology/region");
+	
+	public static final Property SUB_REGION = model.createProperty("http://dbpedia.org/ontology/subregion");
+	
+	public static final Property GDP = model.createProperty("http://dbpedia.org/ontology/grossDomesticProduct");
 
+	public static final Property ABSTRACT = model.createProperty("http://dbpedia.org/ontology/abstract");
+	
+	public static final Property WELL_BEING = model.createProperty("http://dbpedia.org/page/Well-being");
+	
 }

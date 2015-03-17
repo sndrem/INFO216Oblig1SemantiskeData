@@ -127,8 +127,9 @@ public class DataModel {
 		subRegion = (Property) hpiModel.createProperty(HappyOnt.NS + this.SUB_REGION)
 				.addProperty(RDFS.domain, HappyOnt.COUNTRY)
 				.addProperty(RDFS.range, XSD.xstring)
-				.addProperty(RDF.type, OWL.DatatypeProperty);
-		
+				.addProperty(RDF.type, OWL.DatatypeProperty)
+				.addProperty(OWL.sameAs, Dbpedia.SUB_REGION);
+				
 		lifeExpectancy = (Property) hpiModel.createProperty(HappyOnt.NS + this.LIFE_EXPECTANCY)
 				.addProperty(RDFS.domain, HappyOnt.COUNTRY)
 				.addProperty(RDFS.range, XSD.xfloat)
@@ -159,7 +160,8 @@ public class DataModel {
 		gdp = (Property) hpiModel.createProperty(HappyOnt.NS + this.GDP)
 				.addProperty(RDFS.domain, HappyOnt.COUNTRY)
 				.addProperty(RDFS.range, XSD.xint)
-				.addProperty(RDF.type, OWL.DatatypeProperty);
+				.addProperty(RDF.type, OWL.DatatypeProperty)
+				.addProperty(OWL.sameAs, Dbpedia.GDP);
 		
 		govRank = (Property) hpiModel.createProperty(HappyOnt.NS + this.GOV_RANK)
 				.addProperty(RDFS.domain, HappyOnt.COUNTRY)
@@ -169,7 +171,8 @@ public class DataModel {
 		wellBeing = (Property) hpiModel.createProperty(HappyOnt.NS + this.WELL_BEING)
 				.addProperty(RDFS.domain, HappyOnt.COUNTRY)
 				.addProperty(RDFS.range, XSD.xfloat)
-				.addProperty(RDF.type, OWL.DatatypeProperty);
+				.addProperty(RDF.type, OWL.DatatypeProperty)
+				.addProperty(OWL.sameAs, Dbpedia.WELL_BEING);
 		
 		region = (Property) hpiModel.createProperty(HappyOnt.NS + this.REGION)
 				.addProperty(RDFS.domain, HappyOnt.COUNTRY)
@@ -180,7 +183,8 @@ public class DataModel {
 		description = (Property) hpiModel.createProperty(HappyOnt.NS + this.DESCRIPTION)
 				.addProperty(RDFS.domain, HappyOnt.COUNTRY)
 				.addProperty(RDFS.range, XSD.xstring)
-				.addProperty(RDF.type, OWL.DatatypeProperty);
+				.addProperty(RDF.type, OWL.DatatypeProperty)
+				.addProperty(OWL.sameAs, Dbpedia.ABSTRACT);
 	}
 
 	
