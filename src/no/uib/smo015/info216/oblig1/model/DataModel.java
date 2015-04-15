@@ -1,6 +1,7 @@
 package no.uib.smo015.info216.oblig1.model;
 
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.util.Map;
@@ -49,6 +50,12 @@ public class DataModel {
 		hpiModel.begin();
 		createProperties();
 		populateModel();
+		try {
+			hpiModel.read(new FileInputStream("dbpediaData.ttl"), null, "TURTLE");
+		} catch (FileNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		hpiModel.commit();
 		dataset.close();
 	}
