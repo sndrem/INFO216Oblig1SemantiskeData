@@ -35,6 +35,7 @@ public class DataModel {
 					happyLifeYears, footPrint, description,  
 					happyIndex, population, gdp, govRank, type, rank;
 	
+	
 	private Map<String, String> prefixMap;
 	private final String ID = "id", COUNTRY = "country", SUB_REGION = "subRegion", LIFE_EXPECTANCY = "lifeExpectancy", HAPPY_LIFE_YEARS = "happyLifeYears", 
 			FOOTPRINT = "footPrint", HAPPY_INDEX = "happyIndex", POPULATION = "populationTotal", GDP = "grossDomesticProduct", GOV_RANK = "govRank", WELL_BEING = "wellBeing", RANK = "rank",
