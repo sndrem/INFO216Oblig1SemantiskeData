@@ -58,16 +58,6 @@ public class Parser {
 				// Valgt 1 fordi det er kolonne 2 i csv-filen som inneholder countryNames
 				String countryName = compact(props[1]);
 				
-				// System.out.println( "Index " + index + ": [Country] " +
-				// props[0] + " [Sub region] " + props[1] +
-				// " [Life Expectancy] " + props[2] + " [Well Being] " +
-				// props[3] +
-				// " [Happy Life Years] " + props[4] + " [Footprint] " +
-				// props[5] + " [HPI] " + props[6] + " [Populations] " +
-				// props[7] +
-				// " [GDP/Capital] " + props[8] + " [Governance rank] " +
-				// props[9]);
-				//
 				NumberFormat nf = NumberFormat.getInstance();
 				Resource res = tempModel.createResource(HappyOnt.NS + countryName);
 						res.addProperty(data.getId(),tempModel.createTypedLiteral(index))
@@ -123,6 +113,8 @@ public class Parser {
 
 		return tempModel;
 	}
+	
+	
 
 	private String computeRegion(String subRegion) {
 		if(subRegion.substring(0, 1).equalsIgnoreCase("1")){
