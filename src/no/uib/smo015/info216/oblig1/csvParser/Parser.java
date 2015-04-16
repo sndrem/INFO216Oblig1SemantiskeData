@@ -123,15 +123,15 @@ public class Parser {
 								
 								
 				// Opprett literaler
-				Literal rankLit = owlModel.createTypedLiteral(props[0]);
+				Literal rankLit = owlModel.createTypedLiteral(new Integer(props[0]));
 				Literal subRegionLit = owlModel.createTypedLiteral(props[2]);
-				Literal lifeExpectLit = owlModel.createTypedLiteral(props[3]);
-				Literal wellBeingLit = owlModel.createTypedLiteral(props[4]);
-				Literal happyLifeYearLit = owlModel.createTypedLiteral(props[5]);
-				Literal footPrintLit = owlModel.createTypedLiteral(props[6]);
-				Literal happyIndexLit = owlModel.createTypedLiteral(props[7]);
-				Literal populationLit = owlModel.createTypedLiteral(props[8]);
-				Literal gdpLit = owlModel.createTypedLiteral(props[9]);
+				Literal lifeExpectLit = owlModel.createTypedLiteral(new Float(props[3]));
+				Literal wellBeingLit = owlModel.createTypedLiteral(new Float(props[4]));
+				Literal happyLifeYearLit = owlModel.createTypedLiteral(new Float(props[5]));
+				Literal footPrintLit = owlModel.createTypedLiteral(new Float(props[6]));
+				Literal happyIndexLit = owlModel.createTypedLiteral(new Float(props[7]));
+				Literal populationLit = owlModel.createTypedLiteral(new Integer(props[8]));
+				Literal gdpLit = owlModel.createTypedLiteral(new Integer(props[9]));
 				Literal regionLit = owlModel.createTypedLiteral(computeRegion(props[2]));
 				Literal descriptionLit = owlModel.createTypedLiteral(StringUtilities.congoConvert(StringUtilities.underscoreRemoval(countryName)) + " is a country in the region of the " + 
 															StringUtilities.underscoreRemoval(computeRegion(props[2])) + "." + "\nThe population is ca. " + nf.format(new Integer(props[8])) + 
@@ -147,9 +147,9 @@ public class Parser {
 				
 				//Noen av dataene har ikke en verdi for governance rank. Dersom de har N/A setter vi verdien til -1.
 				if(props[10].equals("n/a")){
-					govRankLit = owlModel.createTypedLiteral(-1);
+					govRankLit = owlModel.createTypedLiteral(new Integer(-1));
 				} else {
-					govRankLit = owlModel.createTypedLiteral(props[10]);
+					govRankLit = owlModel.createTypedLiteral(new Integer(props[10]));
 				}
 				
 				// Legg til literalene til individene og modellen.

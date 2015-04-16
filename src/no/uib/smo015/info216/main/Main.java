@@ -10,6 +10,7 @@ import no.uib.smo015.info216.oblig1.model.HappyPlanetOntologyModel;
 import com.hp.hpl.jena.ontology.OntModel;
 import com.hp.hpl.jena.ontology.OntModelSpec;
 import com.hp.hpl.jena.query.Dataset;
+import com.hp.hpl.jena.rdf.model.Model;
 import com.hp.hpl.jena.rdf.model.ModelFactory;
 import com.hp.hpl.jena.tdb.TDBFactory;
 import com.hp.hpl.jena.vocabulary.RDF;
@@ -28,9 +29,12 @@ public class Main {
 		Parser parser = new Parser();
 		OntModel owlModel = ModelFactory.createOntologyModel(OntModelSpec.OWL_MEM_RULE_INF);
 		Dataset dataset = TDBFactory.createDataset("hpiDataset/");
+		Model model = owlModel.getBaseModel();
+		model = dataset.getDefaultModel();
+		model.begin();
+		
 		HappyPlanetOntologyModel hpiModel = new HappyPlanetOntologyModel(owlModel, dataset);
 		parser.readFile(hpiModel.getOwlModel(), "data/Riktig_HPI_Index.csv");
-//		ModelFactory.createDefaultModel().add(hpiModel.getOwlModel().listStatements()).write(System.out,"TURTLE");
 		
 		map = new HashMap<>();
 		map.put("hpi", HappyOnt.NS);
@@ -41,6 +45,7 @@ public class Main {
 		hpiModel.prefixMapping(map);
 		hpiModel.getOwlModel().getBaseModel().write(System.out, "TURTLE");
 		hpiModel.saveFile("testFil.ttl");
+		model.commit();
 
 	}
 
