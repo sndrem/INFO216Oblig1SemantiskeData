@@ -7,6 +7,7 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.text.NumberFormat;
 
+import no.uib.smo015.info216.Dbpedia.Dbpedia;
 import no.uib.smo015.info216.HappyOntology.HappyOnt;
 import no.uib.smo015.info216.Utils.StringUtilities;
 
@@ -15,7 +16,6 @@ import com.hp.hpl.jena.ontology.Individual;
 import com.hp.hpl.jena.ontology.OntClass;
 import com.hp.hpl.jena.ontology.OntModel;
 import com.hp.hpl.jena.rdf.model.Literal;
-import com.hp.hpl.jena.vocabulary.RDF;
 import com.hp.hpl.jena.vocabulary.RDFS;
 import com.hp.hpl.jena.vocabulary.XSD;
 
@@ -42,7 +42,8 @@ public class Parser {
 	 * @return a Model object for Jena to work with
 	 * 
 	 */
-	public OntModel readFile(OntClass ontClass, OntModel owlModel, String fileToRead) {
+	public OntModel readFile(OntModel owlModel, String fileToRead) {
+		OntClass ontClass = owlModel.createClass(HappyOnt.NS + "Country");
 		reader = null;
 		String line = "";
 		String split = ";";
@@ -54,7 +55,6 @@ public class Parser {
 			reader = new BufferedReader(new FileReader(fileToParse));
 			System.out.println("Loaded: " + fileToParse.getName());
 			System.out.println("-----------------------------");
-			int index = 0;
 
 			while ((line = reader.readLine()) != null) {
 				String[] props = line.split(split);
@@ -64,6 +64,8 @@ public class Parser {
 				//Opprett datatype properties
 				NumberFormat nf = NumberFormat.getInstance();
 				Individual countryIndividual = ontClass.createIndividual(HappyOnt.NS + countryName);
+							countryIndividual.addSameAs(Dbpedia.COUNTRY);
+							countryIndividual.addRDFType(HappyOnt.COUNTRY);
 					
 				DatatypeProperty rankProp = owlModel.createDatatypeProperty(HappyOnt.NS + "rank");
 								rankProp.addDomain(ontClass);
@@ -72,14 +74,17 @@ public class Parser {
 				DatatypeProperty subRegionProp = owlModel.createDatatypeProperty(HappyOnt.NS + "subRegion");
 								subRegionProp.addDomain(ontClass);
 								subRegionProp.addRange(XSD.xstring);
+								subRegionProp.addSameAs(Dbpedia.SUB_REGION);
 								
 				DatatypeProperty lifeExpectancyProp = owlModel.createDatatypeProperty(HappyOnt.NS + "lifeExpectancy");
 								lifeExpectancyProp.addDomain(ontClass);
 								lifeExpectancyProp.addRange(XSD.xfloat);
+								lifeExpectancyProp.addSameAs(Dbpedia.LIFE_EXPECTANCY);
 				
 				DatatypeProperty wellBeingProp = owlModel.createDatatypeProperty(HappyOnt.NS + "wellBeing");
 								wellBeingProp.addDomain(ontClass);
 								wellBeingProp.addRange(XSD.xfloat);
+								wellBeingProp.addSameAs(Dbpedia.WELL_BEING);
 				
 				DatatypeProperty happyLifeYearsProp = owlModel.createDatatypeProperty(HappyOnt.NS + "happyLifeYears");
 								happyLifeYearsProp.addDomain(ontClass);
@@ -96,20 +101,30 @@ public class Parser {
 				DatatypeProperty populationProp = owlModel.createDatatypeProperty(HappyOnt.NS + "population");
 								populationProp.addDomain(ontClass);
 								populationProp.addRange(XSD.integer);
+								populationProp.addSameAs(Dbpedia.POPULATION);
 								
 				DatatypeProperty gdpProp = owlModel.createDatatypeProperty(HappyOnt.NS + "gdp");
 								gdpProp.addDomain(ontClass);
 								gdpProp.addRange(XSD.integer);
+								gdpProp.addSameAs(Dbpedia.GDP);
 								
 				DatatypeProperty regionProp = owlModel.createDatatypeProperty(HappyOnt.NS + "region");
 								regionProp.addDomain(ontClass);
 								regionProp.addRange(XSD.xstring);
+								regionProp.addSameAs(Dbpedia.REGION);
 				
 				DatatypeProperty descriptionProp = owlModel.createDatatypeProperty(HappyOnt.NS + "description");
 								descriptionProp.addDomain(ontClass);
 								descriptionProp.addRange(XSD.xstring);
+								descriptionProp.addSameAs(Dbpedia.ABSTRACT);
 								
-				
+				DatatypeProperty govRankProp = owlModel.createDatatypeProperty(HappyOnt.NS + "govRank");
+								govRankProp.addDomain(ontClass);
+								govRankProp.addRange(XSD.integer);
+								
+				DatatypeProperty labelprop = owlModel.createDatatypeProperty(RDFS.label.getURI());
+								
+								
 				// Opprett literaler
 				Literal rankLit = owlModel.createTypedLiteral(props[0]);
 				Literal subRegionLit = owlModel.createTypedLiteral(props[2]);
@@ -131,53 +146,32 @@ public class Parser {
 						                                    "well being of " + props[4]);
 				
 				Literal labelLit = owlModel.createTypedLiteral(StringUtilities.congoConvert(StringUtilities.underscoreRemoval(countryName)));
-								
+				Literal govRankLit = null;
+				
+				//Noen av dataene har ikke en verdi for governance rank. Dersom de har N/A setter vi verdien til -1.
+				if(props[10].equals("n/a")){
+					govRankLit = owlModel.createTypedLiteral(-1);
+				} else {
+					govRankLit = owlModel.createTypedLiteral(props[10]);
+				}
+				
+				// Legg til literalene til individene og modellen.
+				
+				countryIndividual.addProperty(rankProp, rankLit);
+				countryIndividual.addProperty(govRankProp, govRankLit);
+				countryIndividual.addProperty(descriptionProp, descriptionLit);
+				countryIndividual.addProperty(regionProp, regionLit);
+				countryIndividual.addProperty(gdpProp, gdpLit);
+				countryIndividual.addProperty(populationProp, populationLit);
+				countryIndividual.addProperty(happyIndexProp, happyIndexLit);
+				countryIndividual.addProperty(footPrintProp, footPrintLit);
+				countryIndividual.addProperty(happyLifeYearsProp, happyLifeYearLit);
+				countryIndividual.addProperty(wellBeingProp, wellBeingLit);
+				countryIndividual.addProperty(lifeExpectancyProp, lifeExpectLit);
+				countryIndividual.addProperty(subRegionProp, subRegionLit);
+				countryIndividual.addProperty(labelprop, labelLit);
 				
 				
-				
-				
-		
-				
-				
-				
-				
-				
-				
-				
-				
-						tempModel.createResource(HappyOnt.NS + countryName);
-						res.addProperty(data.getId(),tempModel.createTypedLiteral(index))
-						.addLiteral(data.getRank(), new Integer(props[0]))
-						.addLiteral(data.getSubRegion(), props[2])
-						.addLiteral(data.getLifeExpectancy(), new Float(props[3]))
-						.addLiteral(data.getWellBeing(), new Float(props[4]))
-						.addLiteral(data.getHappyLifeYears(), new Float(props[5]))
-						.addLiteral(data.getFootPrint(), new Float(props[6]))
-						.addLiteral(data.getHappyIndex(), new Float(props[7]))
-						.addLiteral(data.getPopulation(), new Integer(props[8]))
-						.addLiteral(data.getGdp(), nf.format(new Integer(props[9])))
-						.addLiteral(data.getRegion(), computeRegion(props[2]))
-						.addProperty(RDF.type, HappyOnt.COUNTRY)
-						.addProperty(RDFS.label, StringUtilities.congoConvert(StringUtilities.underscoreRemoval(countryName)))
-						.addProperty(data.getDescription(), StringUtilities.congoConvert(StringUtilities.underscoreRemoval(countryName)) + " is a country in the region of the " + 
-															StringUtilities.underscoreRemoval(computeRegion(props[2])) + "." + "\nThe population is ca. " + nf.format(new Integer(props[8])) + 
-						                                    " and the Happy Index was measured to " + props[7] + " in 2012.\n" +
-						                                    "The well being is " + props[4] + " and they have a measured\n" +
-						                                    "happy years of " + props[5] + ". They are ranked as number " + 
-						                                    props[0] + " of all the countries.\nThis is based " +
-						                                    "on their geologial footprint which is " + props[6] + "\nand their " +
-						                                    "well being of " + props[4]);
-						//Legg til nye egenskaper
-						if(props[10].equals("n/a")){
-							res.addLiteral(data.getGovRank(), props[10]);
-						} else {
-							res.addLiteral(data.getGovRank(), new Integer(props[10]));
-						}
-
-				//tempModel.add(res, RDF.type, "country");		
-						
-				index++;
-
 			}
 
 			System.out.println("Bleep bloop bling blong, I am finished parsing.\n");
@@ -197,7 +191,7 @@ public class Parser {
 			}
 		}
 
-		return tempModel;
+		return owlModel;
 	}
 
 	private String computeRegion(String subRegion) {

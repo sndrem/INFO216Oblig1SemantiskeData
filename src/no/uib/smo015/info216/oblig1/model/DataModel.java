@@ -50,7 +50,7 @@ public class DataModel {
 //		hpiModel = ModelFactory.createDefaultModel();
 		hpiModel.begin();
 		createProperties();
-		populateModel();
+//		populateModel();
 		try {
 			hpiModel.read(new FileInputStream("dbpediaData.ttl"), null, "TURTLE");
 		} catch (FileNotFoundException e) {
@@ -65,10 +65,10 @@ public class DataModel {
 	/**
 	 * Method to populate the model using the parser
 	 */
-	public void populateModel(){
-		fileParser = new Parser();
-		fileParser.readFile(this, "data/Riktig_HPI_Index.csv");
-	}
+//	public void populateModel(){
+//		fileParser = new Parser();
+//		fileParser.readFile(this, "data/Riktig_HPI_Index.csv");
+//	}
 	
 	/**
 	 * Method to print a model to the console in turle notation
