@@ -42,7 +42,7 @@ public class Main {
 		parser.readFile(hpiModel.getOwlModel(), "data/Riktig_HPI_Index.csv");
 		// Legg til owlModelen i den vanlige modellen.
 		try {
-			hpiModel.getOwlModel().read(new FileInputStream("dbpediaData.ttl"), null, "TURTLE");
+			hpiModel.getOwlModel().read(new FileInputStream("oppdaterteDbpediaData.ttl"), null, "TURTLE");
 //			model.read(new FileInputStream("dbpediaData.ttl"), null, "TURTLE");
 		} catch (FileNotFoundException e) {
 			// TODO Auto-generated catch block
