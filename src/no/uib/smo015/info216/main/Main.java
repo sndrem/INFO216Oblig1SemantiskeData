@@ -31,10 +31,11 @@ public class Main {
 		Dataset dataset = TDBFactory.createDataset("hpiDataset/");
 		Model model = owlModel.getBaseModel();
 		model = dataset.getDefaultModel();
-		model.begin();
-		
 		HappyPlanetOntologyModel hpiModel = new HappyPlanetOntologyModel(owlModel, dataset);
 		parser.readFile(hpiModel.getOwlModel(), "data/Riktig_HPI_Index.csv");
+		model.add(hpiModel.getOwlModel());
+		model.begin();		
+		
 		
 		map = new HashMap<>();
 		map.put("hpi", HappyOnt.NS);
