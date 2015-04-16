@@ -65,7 +65,6 @@ public class Parser {
 				NumberFormat nf = NumberFormat.getInstance();
 				Individual countryIndividual = ontClass.createIndividual(HappyOnt.NS + countryName);
 							countryIndividual.addSameAs(Dbpedia.COUNTRY);
-							countryIndividual.addRDFType(HappyOnt.COUNTRY);
 					
 				DatatypeProperty rankProp = owlModel.createDatatypeProperty(HappyOnt.NS + "rank");
 								rankProp.addDomain(ontClass);
