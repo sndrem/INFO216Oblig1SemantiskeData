@@ -48,8 +48,6 @@ public class Parser {
 		String line = "";
 		String split = ";";
 
-//		Model tempModel = data.getHpiModel();
-
 		try {
 			File fileToParse = new File(fileToRead);
 			reader = new BufferedReader(new FileReader(fileToParse));

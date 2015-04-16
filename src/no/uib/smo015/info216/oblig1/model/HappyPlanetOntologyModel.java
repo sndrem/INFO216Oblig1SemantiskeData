@@ -32,6 +32,7 @@ public class HappyPlanetOntologyModel {
 		if(datasetFile.listFiles().length > 0) {
 			System.out.println("Dataset already populated.");
 		} else {
+			System.out.println("Creating new dataset...");
 			this.dataset = dataset;
 		}
 		
