@@ -62,7 +62,8 @@ public class Parser {
 				//Opprett datatype properties
 				NumberFormat nf = NumberFormat.getInstance();
 				Individual countryIndividual = ontClass.createIndividual(HappyOnt.NS + countryName);
-							countryIndividual.addSameAs(Dbpedia.COUNTRY);
+				//TODO Legg til uri for individiet fra wikipedia/dbpedia			
+//				countryIndividual.addSameAs(Dbpedia.COUNTRY);
 					
 				DatatypeProperty rankProp = owlModel.createDatatypeProperty(HappyOnt.NS + "rank");
 								rankProp.addDomain(ontClass);
@@ -171,6 +172,7 @@ public class Parser {
 				
 			}
 
+			
 			System.out.println("Bleep bloop bling blong, I am finished parsing.\n");
 
 		} catch (FileNotFoundException e) {

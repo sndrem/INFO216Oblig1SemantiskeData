@@ -35,7 +35,6 @@ public class HappyPlanetOntologyModel {
 			System.out.println("Creating new dataset...");
 			this.dataset = dataset;
 		}
-		
 	}
 	
 	/**

@@ -61,7 +61,7 @@ public class Main {
 		map.put("rdf", RDF.getURI());
 		hpiModel.prefixMapping(map);
 		hpiModel.getOwlModel().getBaseModel().write(System.out, "TURTLE");
-		hpiModel.saveFile("testFil.ttl");
+		hpiModel.saveFile("oppdatertHappyIndex.ttl");
 		model.commit();
 
 	}
